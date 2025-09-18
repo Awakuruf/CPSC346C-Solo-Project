@@ -23,3 +23,5 @@
 **Outcome:** Defined project identity as **CatchChance**, with prediction target = probability of catching at least one fish by coarse time-of-day.  
 
 **Attribution:** Seed phrasing and example prompts came from me; AI helped structure the decision into baseline vs stretch-goal framing.  
+
+### 2. 
