@@ -1,11 +1,17 @@
-# CatchChance — very rough idea
+# Project Spec - CatchChance
 
-- Goal: show anglers a chance of catching a fish soon (next hour).
-- Output: probability 0–1, maybe just “35% chance this evening.”
-- Why: helps decide when to go fishing.
-- Inputs: hour, day, maybe location, maybe weather.
-- First model: just use past catch rate by hour.
-- Concerns:
-  - Data privacy (GPS sensitive)
-  - Needs to be cheap/free-tier
-- Next: define more formally.
+## 1) User & Decision
+- Who: recreational anglers
+- Decision: should I fish now or later?
+
+## 2) Target & Horizon
+- Target: `caught_any` = 1 if ≥1 fish, else 0
+- Horizon: one session (≈1 hour)
+
+## 3) Features (idea list)
+- hour, day, season
+- coarse location
+- maybe environment (weather, tide)
+
+## 4) Baseline
+- simple historical catch rate by hour
