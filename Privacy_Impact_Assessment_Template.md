@@ -1,6 +1,17 @@
 # PIA scratch
 
-- Collects: user id? location? catch outcomes?
-- Risk: could reveal when/where someone fishes.
-- Rule: default to coarse data. No raw GPS unless user says yes.
-- Keep data short time (maybe 30 days).
+## Data we collect
+- user_id (hashed)
+- coarse location grid
+- aggregate history (30 days)
+- optional environment, bait, target species
+
+## Risks
+- Re-identification if grid too fine
+- Misuse of location history
+- Data poisoning (fake reports)
+
+## Mitigations
+- k-anonymity for aggregates
+- No raw GPS unless opt-in
+- Raw logs deleted after 30 days
