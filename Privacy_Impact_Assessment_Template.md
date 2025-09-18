@@ -1,5 +1,14 @@
 # PIA scratch
 
+
+**Project purpose:** Short-horizon fishing probability API (CatchChance)  
+**Scope:** Collect user fishing session data to predict short-term catch probability.  
+
+**Data processing summary:**  
+- Collection → Processing → Storage → Sharing → Retention  
+- Primary data: user session start/end, catch outcomes, GPS (coarse), timestamp  
+- Derived data: hour-of-day bucket, location grid aggregation, user 30-day history  
+
 ## Data we collect
 - user_id (hashed)
 - coarse location grid

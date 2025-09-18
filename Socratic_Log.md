@@ -24,4 +24,26 @@
 
 **Attribution:** Seed phrasing and example prompts came from me; AI helped structure the decision into baseline vs stretch-goal framing.  
 
-### 2. 
+### 2. Brainstorm Kickoff
+**Context:** Initial brainstorming on predicting fish-catching probabilities.  
+
+**Prompt A (Design Alternatives):**  
+> “List 2–3 ways to model short-horizon catch probability using coarse time-of-day and optional hourly breakdown.”  
+**Option Tested:** Baseline probability per hour bucket (majority-class + Laplace smoothing).  
+
+**Prompt B (Red-Team):**  
+> “What are the limitations or risks of relying on time-of-day alone?”  
+**Risk Checked:** Ignores weather, location variability, and individual angler skill.  
+
+**Inflection Point:**  
+Decided baseline is viable for early testing but must later incorporate weather and location features.  
+
+**Evidence:**  
+Offline baseline check on synthetic CSV (100 rows, 30% positive).  
+
+**Outcome:**  
+Kept hour-bucket baseline; planned feature expansion for weather/location.  
+
+**Attributions:**  
+- AI: Suggested alternative baselines and red-team critique  
+- You: Selected baseline approach and designed test  
