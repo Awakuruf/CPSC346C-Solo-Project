@@ -1,12 +1,14 @@
 # Project Spec - CatchChance
 
 ## 1) User & Decision
-- Who: recreational anglers
-- Decision: should I fish now or later?
+**User:** Recreational anglers using mobile/web app.  
+**Decision:** Whether to fish during a given session or which hour to target based on predicted probability of catching at least one fish.  
+**Rationale:** Helps anglers optimize time on water and manage expectations; reduces frustration and wasted effort.  
 
 ## 2) Target & Horizon
-- Target: `caught_any` = 1 if ≥1 fish, else 0
-- Horizon: one session (≈1 hour)
+**Target:** Binary — catch ≥1 fish during the next fishing session.  
+**Horizon:** Short-term: next session (~2–4 hours) with optional hourly breakdown.  
+**Output:** Probability (0–1) per coarse bucket (morning / afternoon / evening / night); optional per hour.  
 
 ## 3) Features
 - hour, day, month
