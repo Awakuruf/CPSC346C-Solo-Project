@@ -10,15 +10,18 @@
 **Horizon:** Short-term: next session (~2–4 hours) with optional hourly breakdown.  
 **Output:** Probability (0–1) per coarse bucket (morning / afternoon / evening / night); optional per hour.  
 
-## 3) Features
-- hour, day, month
-- coarse location grid
-- user past 30-day stats
-- optional: bait, target species, environment if available
+## 3) Features (No Leakage)
+- Input features: time-of-day, location (coarse grid), historical catch rates for user/region, weather (wind, temp, precipitation), lunar phase.  
+- Excluded: future weather not yet observed, other users’ private history (unless aggregated), real-time fish stock data (not available).  
+- Reasoning: Avoid leakage by using only data available at prediction time.  
 
-## 4) Baseline
-- Historical catch rate by hour + grid
-- Laplace smoothing
+## 4) Baseline → Model Plan
+**Baseline Rule/Heuristic:**  
+- Predict probability using historical average catch rate for that coarse time-of-day in the same location.  
+
+**Simple Model:**  
+- Logistic regression / Gradient Boosted Tree using historical session features.  
+- Hypothesis: model will capture interactions (e.g., morning + high wind = lower probability) better than baseline.  
 
 ## 5) Possible Model
 - Logistic regression with small feature set

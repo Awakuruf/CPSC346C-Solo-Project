@@ -47,3 +47,27 @@ Kept hour-bucket baseline; planned feature expansion for weather/location.
 **Attributions:**  
 - AI: Suggested alternative baselines and red-team critique  
 - You: Selected baseline approach and designed test  
+
+### 3. Baseline Probabilities
+**Context:** Early discussion on caching baseline probabilities.  
+
+**Prompt A (Design Alternatives):**  
+> “Suggest caching strategies for grid × hour probability tables to reduce API load.”  
+**Option Tested:** Precompute hourly probabilities per coarse location grid.  
+
+**Prompt B (Red-Team):**  
+> “Could caching cause stale or misleading predictions?”  
+**Risk Checked:** Weather/location changes could make cached predictions inaccurate.  
+
+**Inflection Point:**  
+Added plan for daily refresh and optional cache invalidation on weather update.  
+
+**Evidence:**  
+Back-of-envelope estimate: 10k queries/day → 70% cache hit rate.  
+
+**Outcome:**  
+Caching justified; daily refresh implemented to maintain accuracy.  
+
+**Attributions:**  
+- AI: Suggested caching alternatives and risks  
+- You: Designed refresh strategy and simulated load  
