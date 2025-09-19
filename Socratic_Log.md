@@ -95,3 +95,27 @@ Privacy policy strengthened; opt-in pilot initiated.
 **Attributions:**  
 - AI: Highlighted re-identification risks and options  
 - You: Implemented pilot and enforced k-anonymity  
+
+### 5. SLA and Latency
+**Context:** SLA and latency evaluation for prediction API.  
+
+**Prompt A (Design Alternatives):**  
+> “Suggest strategies to meet p95 ≤ 300 ms at 100 RPS with minimal cost.”  
+**Option Tested:** Precompute cache + lightweight probability lookup.  
+
+**Prompt B (Red-Team):**  
+> “What scenarios might break SLA or raise cost?”  
+**Risk Checked:** Cold starts, high traffic bursts, and network variability.  
+
+**Inflection Point:**  
+Added pre-warming for Lambda and monitored queue lengths to maintain SLA.  
+
+**Evidence:**  
+Synthetic probe: estimated p95 ~200 ms at 100 RPS.  
+
+**Outcome:**  
+SLA achievable with pre-warming and caching strategy.  
+
+**Attributions:**  
+- AI: Suggested latency mitigation strategies  
+- You: Implemented pre-warming and monitored API performance  

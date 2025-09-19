@@ -54,10 +54,10 @@
 #### Data Minimization Trade-offs
 | Option                                 | Capability for Prediction                                      | Privacy Risk (Re-identification, linkage)                      | Kept / Rejected | Rationale                                                       |
 | -------------------------------------- | -------------------------------------------------------------- | -------------------------------------------------------------- | --------------- | --------------------------------------------------------------- |
-| **Raw GPS (lat/long, full precision)** | Highest spatial accuracy; supports fine-grained catch modeling | Very high: reveals fishing locations, can link across sessions | ❌ Rejected      | Too invasive; not required for hourly probability               |
-| **1 km² grid cell (rounded GPS)**      | Preserves useful signal (e.g. coastal vs open water)           | Moderate: location fuzzed, harder to link to individuals       | ✅ Kept          | Balances predictive value with reduced risk                     |
-| **No GPS (time-only model)**           | Simplest; low privacy risk                                     | Low accuracy: ignores environmental variation                  | ❌ Rejected      | Fails project’s functional requirement of contextual prediction |
-| **Pseudonymous user ID (salted hash)** | Allows opt-in personalization, A/B evaluation                  | Low: salts rotated daily, no cross-session linkage             | ✅ Kept          | Provides utility while constraining re-ID risk                  |
+| **Raw GPS (lat/long, full precision)** | Highest spatial accuracy; supports fine-grained catch modeling | Very high: reveals fishing locations, can link across sessions |  Rejected      | Too invasive; not required for hourly probability               |
+| **1 km² grid cell (rounded GPS)**      | Preserves useful signal (e.g. coastal vs open water)           | Moderate: location fuzzed, harder to link to individuals       |  Kept          | Balances predictive value with reduced risk                     |
+| **No GPS (time-only model)**           | Simplest; low privacy risk                                     | Low accuracy: ignores environmental variation                  |  Rejected      | Fails project’s functional requirement of contextual prediction |
+| **Pseudonymous user ID (salted hash)** | Allows opt-in personalization, A/B evaluation                  | Low: salts rotated daily, no cross-session linkage             |  Kept          | Provides utility while constraining re-ID risk                  |
 
 ## 6. Access Control & Governance
 
