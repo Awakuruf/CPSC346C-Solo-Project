@@ -6,9 +6,11 @@
 **Rationale:** Helps anglers optimize time on water and manage expectations; reduces frustration and wasted effort. Privacy-sensitive: location + behavioral history matter, so guardrails required.
 
 ## 2) Target & Horizon
-**Target:** Binary — catch ≥1 fish during the next fishing session.  
-**Horizon:** Short-term: next session (~2–4 hours) with optional hourly breakdown.  
-**Output:** Probability (0–1) per coarse bucket (morning / afternoon / evening / night); optional per hour.  
+**Target:** Binary outcome `caught_any` for a session (1 if the session yields ≥1 catch, else 0). The API returns a probability `p ∈ [0,1]` for that target.
+
+**Horizon:** The next single fishing session starting within a specified hour bucket (request includes intended start time or chooses by hour). If no start time provided, the model scores the current hour bucket.
+
+Granularity: hourly buckets by local hour (or coarse: morning/afternoon/evening/night). No leakage: only use data available **before** session start.
 
 ## 3) Features (No Leakage)
 - Input features: time-of-day, location (coarse grid), historical catch rates for user/region, weather (wind, temp, precipitation), lunar phase.  
