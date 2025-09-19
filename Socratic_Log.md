@@ -71,3 +71,27 @@ Caching justified; daily refresh implemented to maintain accuracy.
 **Attributions:**  
 - AI: Suggested caching alternatives and risks  
 - You: Designed refresh strategy and simulated load  
+
+### 4. Privacy
+**Context:** Privacy and consent for precise location data.  
+
+**Prompt A (Design Alternatives):**  
+> “List ways to enforce k-anonymity for location grid data and obtain opt-in consent.”  
+**Option Tested:** Require k ≥ 10 per public aggregate; pilot consent flow for fine-grained location.  
+
+**Prompt B (Red-Team):**  
+> “Could users be re-identified with small k or opt-in confusion?”  
+**Risk Checked:** Potential leakage if grid cells are too small or opt-in is unclear.  
+
+**Inflection Point:**  
+Added consent pilot; enforced k-anonymity on all aggregates.  
+
+**Evidence:**  
+Mock dataset inspection; k≥10 threshold verified.  
+
+**Outcome:**  
+Privacy policy strengthened; opt-in pilot initiated.  
+
+**Attributions:**  
+- AI: Highlighted re-identification risks and options  
+- You: Implemented pilot and enforced k-anonymity  
