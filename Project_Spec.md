@@ -98,9 +98,18 @@ Why simple: models are small (fast inference), interpretable, low-cost inference
   "hour": 14,
   "bait_type": "worm",
   "target_species": "trout",
-  "opt_in_fine_location": false}
+  "opt_in_fine_location": false
+  }
 
 ```
+**Request fields:**
+
+* `user_id` *(string, hashed)* → pseudonymous identifier for personalization.
+* `location_grid` *(string)* → coarse lat/long grid cell (1 km²).
+* `hour` *(int, 0–23)* → local hour of day (bucket).
+* `bait_type` *(string, optional)* → user input; can inform model features.
+* `target_species` *(string, optional)* → filter probabilities for target species.
+* `opt_in_fine_location` *(boolean)* → whether user consented to higher-resolution GPS use.
 
 **Response (200)**
 
@@ -113,10 +122,27 @@ Why simple: models are small (fast inference), interpretable, low-cost inference
 }
 
 ```
+**Response fields:**
 
-**Auth scheme:** Authorization: `Bearer <API_KEY>` (API keys for clients; OAuth for 3rd-party integrations). Free-tier API keys limited to cached aggregate responses; personalized predictions require registration and opt-in.
+* `score` *(float, 0–1)* → predicted probability of at least one catch.
+* `bucket` *(string)* → coarse time-of-day category (morning/afternoon/evening/night).
+* `explanation` *(string)* → short rationale for transparency (features, data used).
+* `model_version` *(string)* → current model version for reproducibility.
 
-**Rate limits:** default 60 req/min per API key; free-tier aggregated-only keys: 600 req/min (cache-backed). Under viral spike, higher-tier keys prioritized via token bucket.
+---
+**Auth scheme:**
+
+* Header: `Authorization: Bearer <API_KEY>`
+* Free-tier API keys → access only to cached aggregate endpoints.
+* Registered (opt-in) users → access to personalized predictions.
+* OAuth flow reserved for 3rd-party partner integrations.
+
+**Rate limits:**
+
+* Default: 60 req/min per registered API key.
+* Free-tier aggregate keys: 600 req/min (served from cache).
+* Spike handling: token bucket prioritizes higher-tier keys; cache ensures graceful degradation.
+
 
 ## 8) Privacy
 - Coarse grids by default
