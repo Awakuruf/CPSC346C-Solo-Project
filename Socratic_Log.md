@@ -159,7 +159,7 @@ Minimal invasive metrics collected; privacy controls applied.
 AI suggested allowing full GPS logging by default. On reflection, we rejected this: requiring explicit opt-in reduces privacy risk and shaped both our retention policy and consent text. This was a turning point where user trust outweighed short-term data richness.
 
 **Evidence:** 
-See PIA §11 Guardrails, §7 Transparency, and §3 Linkability + TODO [link architectural diagram here]
+See PIA §12 Guardrails, §7 Transparency, and §3 Linkability + TODO [link architectural diagram here]
 
 **Outcome:**
 
