@@ -119,3 +119,52 @@ SLA achievable with pre-warming and caching strategy.
 **Attributions:**  
 - AI: Suggested latency mitigation strategies  
 - You: Implemented pre-warming and monitored API performance  
+
+### 6. Telemetry
+**Context:** Telemetry for fish catch predictions.  
+
+**Prompt A (Design Alternatives):**  
+> “Which metrics balance insight vs invasiveness for probability predictions?”  
+**Option Tested:** Track predicted probability, session start, and coarse location only.  
+
+**Prompt B (Red-Team):**  
+> “Are any logs too invasive or risky?”  
+**Risk Checked:** Avoid fine-grained GPS, user identifiers, or personally identifiable patterns.  
+
+**Inflection Point:**  
+Dropped fine-grained data; added aggregation/jitter to public views.  
+
+**Evidence:**  
+Telemetry decision matrix + synthetic probe on 1k rows.  
+
+**Outcome:**  
+Minimal invasive metrics collected; privacy controls applied.  
+
+**Attributions:**  
+- AI: Suggested telemetry metrics and red-team review  
+- You: Selected final metrics and enforced privacy policies  
+
+### 7. Serverless vs Container
+**Context:** Exploring architecture and privacy guardrails for the CatchChance prediction API.
+
+**Prompt A (design alternatives):**
+>"Help me compare serverless vs. containers for a prediction API that will be free at low load but face 50k req/hr spikes. Prioritize budget control and graceful degradation."
+**Option Tested:** Tested hybrid approach (serverless for low load + caching + circuit breaker). Clarified need for rate-limits and cached public aggregates.
+
+**Prompt B (red-team):**
+>"Find privacy attacks on an hourly-grid catch-rate API. How could an attacker re-identify users?"
+**Risk Checked:**  Checked for re-identification risks. Led to k-anonymity threshold, jitter, and suppression rules.
+
+**Inflection point:**
+AI suggested allowing full GPS logging by default. On reflection, we rejected this: requiring explicit opt-in reduces privacy risk and shaped both our retention policy and consent text. This was a turning point where user trust outweighed short-term data richness.
+
+**Evidence:** 
+See PIA §11 Guardrails, §7 Transparency, and §3 Linkability + TODO [link architectural diagram here]
+
+**Outcome:**
+
+* Adopted hybrid serverless/containers design.
+* Privacy guardrails: k=10, jitter, suppression.
+* Documented correction of a poor AI suggestion (AI proposed k=2; we enforced k=10 for stronger anonymity).
+
+**Attribution:** AI generated trade-off sketches and risk lists; team performed evidence checks, code refs, and final design choices.
