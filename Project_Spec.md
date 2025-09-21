@@ -143,8 +143,39 @@ Why simple: models are small (fast inference), interpretable, low-cost inference
 * Free-tier aggregate keys: 600 req/min (served from cache).
 * Spike handling: token bucket prioritizes higher-tier keys; cache ensures graceful degradation.
 
+## 8) Privacy, Ethics, Reciprocity (PIA excerpt)
 
-## 8) Privacy
-- Coarse grids by default
-- Raw logs → keep 30d max
-- Opt-in for fine GPS
+**Data inventory**
+
+- **Personal data:** `user_id`, last-30d aggregated history (`n_sessions`, `n_catches`) — stored pseudonymized.
+- **Location:** coarse grid by default; fine location only with explicit opt-in.
+- **Telemetry:** latency, error rates, anonymized counters.
+
+**Purpose limitation:** only used to predict `caught_any` for next session and improve model with opt-in labels. No advertising, no sale of data.
+
+**Retention**
+
+- **Raw session records:** retained **30 days** then aggregated to counts.
+- **Aggregates / model training dataset:** retained **2 years** as anonymized aggregates.
+- **User opt-out:** user can request deletion of raw history; we keep aggregates needed for global models (with k-anonymity).
+
+**Access:** only engineering & model pipeline service accounts; least privilege enforced by IAM; no manual exports without audit.
+
+**Telemetry decision matrix (value vs invasiveness vs effort)**
+
+| Telemetry item | Value | Invasiveness | Store? | TTL |
+| --- | --- | --- | --- | --- |
+| request latency | high | low | yes | 90 days |
+| error traces (no PII) | high | low | yes | 180 days |
+| request metadata (user_id hashed, grid) | medium | medium | yes | 30 days |
+| raw GPS traces | low | high | **no** (unless opt-in) | n/a |
+
+**Guardrails**
+
+- **k-anonymity threshold**: do not display or expose aggregates for grid-hour combos with `n_sessions < k` (`k=10`) — return “insufficient data” or broaden the grid/time window.
+- **Jitter / aggregation:** when serving public aggregate endpoints, add small Laplace noise to published rates to reduce re-identification risk.
+- **Retention:** raw session logs => 30 days then aggregated; deletion on user request.
+- **Consent:** fine-grained location or identifiable sharing requires explicit opt-in and clear disclosure.
+- **Disclosure text:** short, user-facing privacy notice on first-use + link to full PIA explaining aggregate retention and opt-out.
+
+**Reciprocity:** users receive direct value (personalized probabilities), and optionally an anonymized community dashboard (e.g., top catch-hours) to increase perceived reciprocity.
