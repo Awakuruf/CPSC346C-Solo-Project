@@ -57,10 +57,7 @@ Why simple: models are small (fast inference), interpretable, low-cost inference
 - Logistic regression / Gradient Boosted Tree using historical session features.  
 - Hypothesis: model will capture interactions (e.g., morning + high wind = lower probability) better than baseline.  
 
-## 5) Possible Model
-- Logistic regression with small feature set
-
-## 6) Metrics, SLA, and Cost
+## 5) Metrics, SLA, and Cost
 
 **Primary metric (harms-aware):**
 
@@ -78,9 +75,9 @@ Why simple: models are small (fast inference), interpretable, low-cost inference
 
 **Rationale:** a 300 ms p95 keeps UX snappy on mobile; lightweight model inference and caching should make this achievable.
 
-## 7) API Sketch
+## 6) API Sketch
 
-**Endpoints**
+**6.1 Endpoints**
 
 | Method | Path | Purpose | Auth? |
 | --- | --- | --- | --- |
@@ -89,7 +86,7 @@ Why simple: models are small (fast inference), interpretable, low-cost inference
 | POST | /v1/report_session | (Opt-in) user reports session outcome (label) | Bearer |
 | GET | /v1/aggregate/:grid/:hour | Public aggregated probability for grid/hour | none (cacheable) |
 
-**Request example (POST /v1/predict)**
+**6.2 Request example (POST /v1/predict)**
 
 ```json
 {
@@ -111,7 +108,7 @@ Why simple: models are small (fast inference), interpretable, low-cost inference
 * `target_species` *(string, optional)* → filter probabilities for target species.
 * `opt_in_fine_location` *(boolean)* → whether user consented to higher-resolution GPS use.
 
-**Response (200)**
+**6.2 Response (200)**
 
 ```json
 {
@@ -130,7 +127,7 @@ Why simple: models are small (fast inference), interpretable, low-cost inference
 * `model_version` *(string)* → current model version for reproducibility.
 
 ---
-**Auth scheme:**
+**6.3 Auth scheme:**
 
 * Header: `Authorization: Bearer <API_KEY>`
 * Free-tier API keys → access only to cached aggregate endpoints.
@@ -143,7 +140,7 @@ Why simple: models are small (fast inference), interpretable, low-cost inference
 * Free-tier aggregate keys: 600 req/min (served from cache).
 * Spike handling: token bucket prioritizes higher-tier keys; cache ensures graceful degradation.
 
-## 8) Privacy, Ethics, Reciprocity (PIA excerpt)
+## 7) Privacy, Ethics, Reciprocity (PIA excerpt)
 
 **Data inventory**
 
@@ -180,10 +177,10 @@ Why simple: models are small (fast inference), interpretable, low-cost inference
 
 **Reciprocity:** users receive direct value (personalized probabilities), and optionally an anonymized community dashboard (e.g., top catch-hours) to increase perceived reciprocity.
 
-## 9) Architectural Diagram
+## 8) Architectural Diagram
 TODO
 
-## 10) Risks & Mitigations
+## 9) Risks & Mitigations
 
 1. **Cost blow-up during viral spike**
     - *Mitigation:* Rate limits, tiered access, cache-first architecture, degrade to cached/baseline responses for free tier, hard budget cutoff (circuit-breaker) to prevent runaway cloud costs.
