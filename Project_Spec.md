@@ -179,3 +179,18 @@ Why simple: models are small (fast inference), interpretable, low-cost inference
 - **Disclosure text:** short, user-facing privacy notice on first-use + link to full PIA explaining aggregate retention and opt-out.
 
 **Reciprocity:** users receive direct value (personalized probabilities), and optionally an anonymized community dashboard (e.g., top catch-hours) to increase perceived reciprocity.
+
+## 9) Architectural Diagram
+TODO
+
+## 10) Risks & Mitigations
+
+1. **Cost blow-up during viral spike**
+    - *Mitigation:* Rate limits, tiered access, cache-first architecture, degrade to cached/baseline responses for free tier, hard budget cutoff (circuit-breaker) to prevent runaway cloud costs.
+    - *Acceptance criterion:* under a 50k req/hr spike, system returns cached/baseline responses with p95 ≤ 500 ms for cached responses and no unbounded spend > preset budget.
+2. **Privacy / re-identification via location/time combination**
+    - *Mitigation:* k-anonymity (k≥10) for exposed aggregates, coarse grids by default, jitter/noise on published aggregates, opt-in for fine location.
+3. **Poor model calibration / harm (misleading probability)**
+    - *Mitigation:* evaluate calibration (Brier), recalibrate using Platt scaling/isotonic, expose uncertainty, slow roll updates, require minimal performance improvement over baseline before release.
+4. **Data poisoning from adversarial labels (fake reports)**
+    - *Mitigation:* weight opt-in labels by trust score, verify with heuristics, do not automatically retrain on unverified labels.
