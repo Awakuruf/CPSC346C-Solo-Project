@@ -191,3 +191,18 @@ TODO
     - *Mitigation:* evaluate calibration (Brier), recalibrate using Platt scaling/isotonic, expose uncertainty, slow roll updates, require minimal performance improvement over baseline before release.
 4. **Data poisoning from adversarial labels (fake reports)**
     - *Mitigation:* weight opt-in labels by trust score, verify with heuristics, do not automatically retrain on unverified labels.
+
+## 10) Measurement Plan (minimal experiment)
+
+**Offline evaluation (minimum):**
+
+- Data: historic sessions (user_id hashed, grid, hour, features, label).
+- Split: time-based train/validation/test (train through date T; validate on T to T+30d; test on next 30d) to avoid leakage.
+- Baseline: compute baseline hourly-grid rates and measure AUC-PR and Brier score on test set.
+- Model: train logistic regression, evaluate same metrics. Acceptance: **AUC-PR improvement ≥ 0.05 over baseline** OR **Brier score improved by ≥ 5%** and p95 latency under 300 ms in inference bench.
+
+**SLA measurement plan:**
+
+- Create synthetic load tests:
+    - Normal load: 100 req/day (no issues) — confirm bill < free tier.
+    - Spike test: 50k req/hour (burst) with mix of cached vs. personalized calls. Verify degradation behavior and circuit breaker triggers. Measure p95 for cached responses and for model responses until circuit-breaker trips.
