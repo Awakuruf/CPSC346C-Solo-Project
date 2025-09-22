@@ -1,4 +1,5 @@
-# Project Spec - CatchChance
+# CatchChance
+This `README` provides the full, detailed version of the project spec. For a more concise (3 page) version, refer to `Project_Spec.md.`
 
 ## 1) User & Decision
 **User:** Recreational anglers using the mobile app (or website) to plan a session.
