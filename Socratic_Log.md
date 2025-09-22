@@ -208,3 +208,16 @@ See PIA §12 Guardrails, §7 Transparency, and §3 Linkability + TODO [link arch
 **Evidence:** Paper napkin calc: if 30% of morning sessions had ≥1 catch, baseline is 0.3.
 
 **Outcome:** Adopted historical frequency baseline.
+
+### 11. Assumption Audit Check
+
+**Prompt B (red-team):**
+
+> “What if anglers use this app to overfish specific hours? Could CatchChance cause harm?”
+> 
+
+**AI Response nudged me to:** think about **PIA / ethics**.
+
+**Inflection Point:** I hadn’t considered downstream use. Even in design-only, I noted: “probabilities should be jittered/noised for privacy, and outputs must not drive over-exploitation.”
+
+**Outcome:** Added guardrail in architecture diagram: k-anon + jitter layer before exposing data.

@@ -11,6 +11,26 @@
 - Derived data: hour-of-day bucket, location grid aggregation, user 30-day history  
 * One thing we need to be careful is how cloud provider access logs may capture IPs and referrers; mitigated by short retention and masking.
 
+## Telemetry Decision Matrix
+
+| Metric / Log | Purpose | Value (1–5) | Invasive (1–5) | Effort (1–5) | Retention | Access | Keep? |
+|--------------|---------|--------------|----------------|---------------|----------|--------|-------|
+| Session start | Timing analysis | 4 | 2 | 2 | 30d raw | Analytics | Yes |
+| Session end | Duration metrics | 4 | 2 | 2 | 30d raw | Analytics | Yes |
+| Catch outcome | Model labels | 5 | 1 | 2 | 30d raw | Model | Yes |
+| GPS (coarse) | Location baseline | 5 | 3 | 2 | 30d raw | Analytics | Yes |
+| User ID (hashed) | Personalization | 4 | 2 | 3 | 30d raw | Model | Yes |
+| Device UA | Debug | 2 | 1 | 1 | 7d raw | DevOps | Yes |
+
+## Guardrails
+
+- **k-anonymity threshold:** k ≥ 10 for public aggregates  
+- **Jitter / aggregation:** Hour-bucket + 1 km² grid; optional sampling  
+- **Raw TTLs:** 7–30 days depending on field  
+- **Least-privilege access:** Roles limited to analytics/model/devops needs  
+- **Disclosure / transparency:** Onboarding guide, PIA link  
+- **Opt-in for sensitive features:** Fine-grained location, personalization
+
 ## 2. Data Inventory
 
 | Field | Purpose | Lawful Basis | Minimization | Retention | Access Roles |
@@ -93,26 +113,6 @@
 | Cold-start users | Personalization optional; no full benefit | Default to grid×hour baseline |
 | Spike events | Cached baseline may mislead | Documented degraded mode; optional weather input |
 | Partial reporting | Sparse labels limit model | Baseline works independently of user submissions |
-
-## 11. Telemetry Decision Matrix (Evolving)
-
-| Metric / Log | Purpose | Value (1–5) | Invasive (1–5) | Effort (1–5) | Retention | Access | Keep? |
-|--------------|---------|--------------|----------------|---------------|----------|--------|-------|
-| Session start | Timing analysis | 4 | 2 | 2 | 30d raw | Analytics | Yes |
-| Session end | Duration metrics | 4 | 2 | 2 | 30d raw | Analytics | Yes |
-| Catch outcome | Model labels | 5 | 1 | 2 | 30d raw | Model | Yes |
-| GPS (coarse) | Location baseline | 5 | 3 | 2 | 30d raw | Analytics | Yes |
-| User ID (hashed) | Personalization | 4 | 2 | 3 | 30d raw | Model | Yes |
-| Device UA | Debug | 2 | 1 | 1 | 7d raw | DevOps | Yes |
-
-## 12. Guardrails
-
-- **k-anonymity threshold:** k ≥ 10 for public aggregates  
-- **Jitter / aggregation:** Hour-bucket + 1 km² grid; optional sampling  
-- **Raw TTLs:** 7–30 days depending on field  
-- **Least-privilege access:** Roles limited to analytics/model/devops needs  
-- **Disclosure / transparency:** Onboarding guide, PIA link  
-- **Opt-in for sensitive features:** Fine-grained location, personalization
 
 ---
 
