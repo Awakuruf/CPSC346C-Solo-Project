@@ -52,9 +52,7 @@ Refer to [Metrics & SLA](https://github.com/Awakuruf/CPSC346C-Solo-Project/blob/
 | POST   | /v1/report\_session         | (Opt-in) report outcome | Bearer |
 | GET    | /v1/aggregate/\:grid/\:hour | Public aggregate        | none   |
 
-
 **6.2 Request example (POST /v1/predict)**
-
 ```json
 {
   "user_id": "user-123",
@@ -62,20 +60,9 @@ Refer to [Metrics & SLA](https://github.com/Awakuruf/CPSC346C-Solo-Project/blob/
   "hour": 14,
   "bait_type": "worm",
   "target_species": "trout",
-  "opt_in_fine_location": false
 }
 ```
-**Request fields:**
-
-* `user_id` *(string, hashed)* → pseudonymous identifier for personalization.
-* `location_grid` *(string)* → coarse lat/long grid cell (1 km²).
-* `hour` *(int, 0–23)* → local hour of day (bucket).
-* `bait_type` *(string, optional)* → user input; can inform model features.
-* `target_species` *(string, optional)* → filter probabilities for target species.
-* `opt_in_fine_location` *(boolean)* → whether user consented to higher-resolution GPS use.
-
 **6.2 Response (200)**
-
 ```json
 {
   "score": 0.37,
@@ -83,28 +70,17 @@ Refer to [Metrics & SLA](https://github.com/Awakuruf/CPSC346C-Solo-Project/blob/
   "explanation": "based on 30-day catch rate and current water temp",
   "model_version": "v0.3"
 }
-
 ```
-**Response fields:**
-
-* `score` *(float, 0–1)* → predicted probability of at least one catch.
-* `bucket` *(string)* → coarse time-of-day category (morning/afternoon/evening/night).
-* `explanation` *(string)* → short rationale for transparency (features, data used).
-* `model_version` *(string)* → current model version for reproducibility.
-
----
 **6.3 Auth scheme:**
+* **Auth:** `Authorization: Bearer <API_KEY>`
+  • Free-tier → cached aggregates end points only
+  • Registered (opt-in) → personalized predictions
+  • OAuth reserved for 3rd-party partner integrations
 
-* Header: `Authorization: Bearer <API_KEY>`
-* Free-tier API keys → access only to cached aggregate endpoints.
-* Registered (opt-in) users → access to personalized predictions.
-* OAuth flow reserved for 3rd-party partner integrations.
-
-**Rate limits:**
-
-* Default: 60 req/min per registered API key.
-* Free-tier aggregate keys: 600 req/min (served from cache).
-* Spike handling: token bucket prioritizes higher-tier keys; cache ensures graceful degradation.
+* **Rate limits:**
+  • Default:  60 req/min per registered API key.
+  • Free-tier: 600 req/min (cache)
+  • Spikes: token bucket higher-tier priority + cache graceful degradation
 
 ## 7) Privacy, Ethics, Reciprocity (PIA excerpt)
 
