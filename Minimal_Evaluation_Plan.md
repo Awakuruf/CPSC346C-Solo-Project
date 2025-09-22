@@ -40,6 +40,7 @@ flowchart LR
 
   * **AUC-PR** (handles imbalanced positives).
   * **Calibration** (Brier score / calibration curve).
+  * We care more about well-calibrated probabilities (so users can make rational decisions).
 
 * **Secondary metrics:**
 
@@ -58,19 +59,20 @@ flowchart LR
     * Max budget ≤ **\$1 per 10k predictions** at scale.
   * **Graceful degradation** under burst (50k req/hr).
 
+**Rationale:** a 300 ms p95 keeps UX snappy on mobile; lightweight model inference and caching should make this achievable.
+
 ---
 
 ## Measurement Plan
+**Offline evaluation (minimum):**
 
-* **Offline eval:**
+- **Data:** historic sessions (user_id hashed, grid, hour, features, label).
+- **Split:** time-based train/validation/test (train through date T; validate on T to T+30d; test on next 30d) to avoid leakage.
+- **Baseline:** compute baseline hourly-grid rates and measure AUC-PR and Brier score on test set.
+- **Model:** train logistic regression, evaluate same metrics. Acceptance: **AUC-PR improvement ≥ 0.05 over baseline** OR **Brier score improved by ≥ 5%** and p95 latency under 300 ms in inference bench.
 
-  * Historic session data (hashed user\_id, grid, hour, features, label).
-  * Time-based split: train → validation → test to avoid leakage.
-  * Compare baseline vs model on AUC-PR and Brier.
-  * Acceptance: ≥0.05 AUC-PR gain OR ≥5% Brier improvement.
+**SLA measurement plan:**
 
-* **SLA measurement:**
-
-  * Synthetic load tests.
-  * Normal load: 100 req/day → confirm cost ≈ \$0.
-  * Spike load: 50k req/hr → check cache hit rate, p95 latency, and confirm circuit-breaker degrades safely.
+- Create synthetic load tests:
+    - **Normal load:** 100 req/day (no issues) — confirm bill < free tier.
+    - **Spike test:** 50k req/hour (burst) with mix of cached vs. personalized calls. Verify degradation behavior and circuit breaker triggers. Measure p95 for cached responses and for model responses until circuit-breaker trips.

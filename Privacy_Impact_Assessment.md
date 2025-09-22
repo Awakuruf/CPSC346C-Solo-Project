@@ -1,4 +1,4 @@
-# PIA scratch
+# Privacy Impact Assessment (PIA) 
 
 ## 1. Overview
 
@@ -114,14 +114,13 @@
 | Spike events | Cached baseline may mislead | Documented degraded mode; optional weather input |
 | Partial reporting | Sparse labels limit model | Baseline works independently of user submissions |
 
----
-
-## Risks
-- Re-identification if grid too fine
-- Misuse of location history
-- Data poisoning (fake reports)
-
-## Mitigations
-- k-anonymity for aggregates
-- No raw GPS unless opt-in
-- Raw logs deleted after 30 days
+## 11. Risks & Mitigations
+1. **Cost blow-up during viral spike**
+    - *Mitigation:* Rate limits, tiered access, cache-first architecture, degrade to cached/baseline responses for free tier, hard budget cutoff (circuit-breaker) to prevent runaway cloud costs.
+    - *Acceptance criterion:* under a 50k req/hr spike, system returns cached/baseline responses with p95 ≤ 500 ms for cached responses and no unbounded spend > preset budget.
+2. **Privacy / re-identification via location/time combination**
+    - *Mitigation:* k-anonymity (k≥10) for exposed aggregates, coarse grids by default, jitter/noise on published aggregates, opt-in for fine location.
+3. **Poor model calibration / harm (misleading probability)**
+    - *Mitigation:* evaluate calibration (Brier), recalibrate using Platt scaling/isotonic, expose uncertainty, slow roll updates, require minimal performance improvement over baseline before release.
+4. **Data poisoning from adversarial labels (fake reports)**
+    - *Mitigation:* weight opt-in labels by trust score, verify with heuristics, do not automatically retrain on unverified labels.
