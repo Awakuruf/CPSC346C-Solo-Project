@@ -139,7 +139,7 @@ flowchart LR
 2. **Privacy/re-ID:** coarse grids, k-anon, jitter.
 3. **Calibration harm:** track Brier, recalibrate (Platt/isotonic), slow rollouts.
 
-Refer to [Risks & Mitigations](https://github.com/Awakuruf/CPSC346C-Solo-Project/blob/main/Minimal_Evaluation_Plan.md#measurement-plan) for details.
+Refer to [Risks & Mitigations](https://github.com/Awakuruf/CPSC346C-Solo-Project/blob/main/Privacy_Impact_Assessment.md#11-risks--mitigations) for details.
 
 ## 10) Measurement Plan (minimal experiment)
 
