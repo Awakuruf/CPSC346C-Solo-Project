@@ -14,7 +14,7 @@
 I assumed AWS Lambda or GCP Functions free tiers would survive a 10× spike without cost. In practice, cold-start overhead + per-invocation billing eats through free quotas quickly at ~50k req/hr.  
 
 **Evidence:** Cost model simulation (`analysis/cost_model.ipynb`, cell 12) shows Lambda’s 1M free requests/month burn out in <1 day at viral load.  
-* TODO - Evidence based on AWS insights 
+* According to AWS’s official pricing documentation, the Lambda free tier includes 1 million free requests and 400,000 GB-seconds of compute time per month [AWS Lambda Pricing](https://aws.amazon.com/lambda/pricing/). At viral traffic rates, this allotment can be consumed in well under a day: for example, at just 1,000 requests per second—a modest “viral” load—an application would process 3.6 million requests in a single hour, exhausting the 1 million free requests in less than 20 minutes. This shows that while the Lambda free tier may suffice for low-traffic workloads, it is quickly exceeded once a function experiences rapid adoption or viral growth.
 
 **Why it matters:** My design must either (a) throttle non-essential requests, or (b) pre-compute/coarsen predictions (by hour, not minute) to reduce calls. This changes architecture from naive “predict on every hit” to caching results.  
 

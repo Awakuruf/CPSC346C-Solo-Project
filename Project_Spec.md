@@ -180,7 +180,21 @@ Why simple: models are small (fast inference), interpretable, low-cost inference
 **Reciprocity:** users receive direct value (personalized probabilities), and optionally an anonymized community dashboard (e.g., top catch-hours) to increase perceived reciprocity.
 
 ## 8) Architectural Diagram
-TODO
+```mermaid
+flowchart LR
+  C["Client App"] -->|POST /v1/predict| G["API Gateway / WAF / Rate-limiter"]
+  G --> A["Auth Service (API key / OAuth)"]
+  G --> P["Predict Service (stateless)"]
+  P --> R["Cache (Redis/Edge Cache)"]
+  P --> F["Feature Store (DynamoDB)"]
+  P --> M["Model Artifact (S3)"]
+  P --> L["Label DB (opt-in)"]
+  M -->|load| P
+  P -->|metrics| O["Observability"]
+  C -->|GET /v1/aggregate| CDN["CDN / Edge Cache"] --> G
+  
+  classDef infra fill:#f9f,stroke:#333,stroke-width:1px;
+```
 
 ## 9) Risks & Mitigations
 

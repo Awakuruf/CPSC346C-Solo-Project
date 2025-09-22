@@ -6,8 +6,21 @@
 ---
 
 ## Architectural Diagram
-
-TODO
+```mermaid
+flowchart LR
+  C["Client App"] -->|POST /v1/predict| G["API Gateway / WAF / Rate-limiter"]
+  G --> A["Auth Service (API key / OAuth)"]
+  G --> P["Predict Service (stateless)"]
+  P --> R["Cache (Redis/Edge Cache)"]
+  P --> F["Feature Store (DynamoDB)"]
+  P --> M["Model Artifact (S3)"]
+  P --> L["Label DB (opt-in)"]
+  M -->|load| P
+  P -->|metrics| O["Observability"]
+  C -->|GET /v1/aggregate| CDN["CDN / Edge Cache"] --> G
+  
+  classDef infra fill:#f9f,stroke:#333,stroke-width:1px;
+```
 
 ## Baseline vs. Model Plan
 
