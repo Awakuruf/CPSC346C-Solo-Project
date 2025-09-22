@@ -224,42 +224,7 @@ flowchart LR
     - Spike test: 50k req/hour (burst) with mix of cached vs. personalized calls. Verify degradation behavior and circuit breaker triggers. Measure p95 for cached responses and for model responses until circuit-breaker trips.
 
 ## 11) Evolution & Evidence
-
-The project evolved through multiple iterations, with each commit adding clarity to design, evaluation, and documentation.
-
-* **Initial commit** — \[Initial commit]\(\<repo\_url>/commit/`<hash>`) (joined class late, communicated to Tony).
-* **Initial socratic log** — \[Initial socratic\_log]\(\<repo\_url>/commit/`<hash>`).
-* **Very rough draft** — \[Very rough project\_spec draft]\(\<repo\_url>/commit/`<hash>`).
-* **Sketching PIA** — \[Sketching initial PIA]\(\<repo\_url>/commit/`<hash>`).
-* **Jotting ideas** — \[Three initial ideas]\(\<repo\_url>/commit/`<hash>`).
-* **Assumption log** — \[Initial assumption log]\(\<repo\_url>/commit/`<hash>`).
-* **Test section update** — \[Reformatted test section]\(\<repo\_url>/commit/`<hash>`).
-* **Formalizing spec** — \[More formal draft of project\_spec]\(\<repo\_url>/commit/`<hash>`).
-* **Formalizing PIA** — \[Formalized PIA]\(\<repo\_url>/commit/`<hash>`).
-* **Spec template** — \[Added brainstorming ideas]\(\<repo\_url>/commit/`<hash>`).
-* **Insight iteration** — \[Looked back into insights-memo]\(\<repo\_url>/commit/`<hash>`).
-* **PIA statements** — \[Adding initial PIA statements]\(\<repo\_url>/commit/`<hash>`).
-* **Expanding spec** — \[Expanding on first project\_spec points]\(\<repo\_url>/commit/`<hash>`).
-* **Baseline model** — \[Added baseline model and features]\(\<repo\_url>/commit/`<hash>`).
-* **First insight** — \[AWS research → one Insight]\(\<repo\_url>/commit/`<hash>`).
-* **PIA expansion** — \[Added data flow diagram, trade-off table, leakage notes]\(\<repo\_url>/commit/`<hash>`).
-* **User & Decision details** — \[Updated Project Spec]\(\<repo\_url>/commit/`<hash>`).
-* **Assumption log expansion** — \[Added assumption logs]\(\<repo\_url>/commit/`<hash>`).
-* **Insight memo** — \[Added second point]\(\<repo\_url>/commit/`<hash>`).
-* **Socratic log updates** — \[Telemetry + serverless questions]\(\<repo\_url>/commit/`<hash>`).
-* **PIA details** — \[Telemetry Matrix + Guardrails]\(\<repo\_url>/commit/`<hash>`).
-* **Minimal evaluation** — \[Evaluation + architectural diagram page]\(\<repo\_url>/commit/`<hash>`).
-* **Request/response fields** — \[Added descriptions]\(\<repo\_url>/commit/`<hash>`).
-* **PIA Excerpt** — \[Final draft summary]\(\<repo\_url>/commit/`<hash>`).
-* **Risks & Mitigation** — \[Added risks and resources]\(\<repo\_url>/commit/`<hash>`).
-* **Model Plan** — \[Combined Baseline & Model Plan]\(\<repo\_url>/commit/`<hash>`).
-* **Measurement Plan** — \[Added detailed measurement plan]\(\<repo\_url>/commit/`<hash>`).
-* **README** — \[Created README.md]\(\<repo\_url>/commit/`<hash>`).
-* **Socratic logs** — \[Updated per project\_spec]\(\<repo\_url>/commit/`<hash>`).
-* **Final Insight** — \[Added final insight & telemetry feedback]\(\<repo\_url>/commit/`<hash>`).
-* **Reorg PIA** — \[Telemetry matrix & guardrails under overview]\(\<repo\_url>/commit/`<hash>`).
-* **Formatting** — \[Fixing format]\(\<repo\_url>/commit/`<hash>`).
-* **Architecture finalization** — \[Architectural diagram + TODO cleanup]\(\<repo\_url>/commit/`<hash>`).
-
-For the complete history, see:
-\[Compare all commits]\(\<repo\_url>/compare/`<first_hash>`...`<latest_hash>`).
+* Complete Git history: [Commit range 28f789b → 3f8cbb6](https://github.com/Awakuruf/CPSC346C-Solo-Project/commits/main/)
+* Insight memo: [Insight\_Memo.md](https://github.com/Awakuruf/CPSC346C-Solo-Project/blob/main/Insight_Memo.md)
+* Assumption audit: [Assumption\_Audit.md](https://github.com/Awakuruf/CPSC346C-Solo-Project/blob/main/Assumption_Audit.md)
+* Socratic log: [Socratic\_Log.md](https://github.com/Awakuruf/CPSC346C-Solo-Project/blob/main/Socratic_Log.md)
