@@ -2,7 +2,9 @@
 
 ## 1) User & Decision
 **User:** Recreational anglers using the mobile app (or website) to plan a session.
+
 **Decision:** Whether to fish during a given session or which hour to target based on predicted probability of catching at least one fish. The product returns a short, actionable probability (e.g., “37% chance this afternoon”), and a suggested hour bucket if the user wants to maximize catch chance.
+
 **Rationale:** Helps anglers optimize time on water and manage expectations; reduces frustration and wasted effort. Privacy-sensitive: location + behavioral history matter, so guardrails required.
 
 ## 2) Target & Horizon
