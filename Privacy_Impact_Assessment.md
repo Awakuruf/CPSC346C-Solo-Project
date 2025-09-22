@@ -9,7 +9,7 @@
 - Collection → Processing → Storage → Sharing → Retention  
 - Primary data: user session start/end, catch outcomes, GPS (coarse), timestamp  
 - Derived data: hour-of-day bucket, location grid aggregation, user 30-day history  
-* One thing we need to be careful is how cloud provider access logs may capture IPs and referrers; mitigated by short retention and masking.
+- One thing we need to be careful is how cloud provider access logs may capture IPs and referrers; mitigated by short retention and masking.
 
 ## Telemetry Decision Matrix
 
@@ -23,7 +23,6 @@
 | Device UA | Debug | 2 | 1 | 1 | 7d raw | DevOps | Yes |
 
 ## Guardrails
-
 - **k-anonymity threshold:** k ≥ 10 for public aggregates  
 - **Jitter / aggregation:** Hour-bucket + 1 km² grid; optional sampling  
 - **Raw TTLs:** 7–30 days depending on field  

@@ -2,11 +2,7 @@
 
 **Project:** CatchChance — short-horizon fishing probability API
 
----
-
-**Notes / Initial Observations:**  
-- Initial assumptions brainstorm  
-- Placeholder for early risks and questions  
+---  
 
 ## Assumptions
 
