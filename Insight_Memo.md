@@ -1,10 +1,6 @@
 # Insights
 
-**Notes / Initial Observations (Specifically to fishing data statistics):**  
-- Hypothesis: Catch probability varies by time-of-day; morning may have higher catch rates.  
-- Question: Does hourly granularity provide significantly more predictive power than coarse buckets?  
-- Placeholder: No data analyzed yet.  
-
+**Notes / Initial Observations**
 1. Free-tier infra means model must be tiny.
 2. Privacy matters more than accuracy at first → better to underfit than leak data.
 3. Data sparsity will be an issue → smoothing + aggregation needed.
