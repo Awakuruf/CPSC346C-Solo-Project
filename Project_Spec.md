@@ -1,23 +1,18 @@
 # Project Spec - CatchChance
 
 ## 1) User & Decision
-**User:**  Recreational anglers using mobile/web app.
-
-**Decision:** When to fish (session/hour) based on probability of catching ≥1 fish.
-
-**Rationale:** Optimizes time on water, manages expectations, reduces frustration. Guardrails needed for privacy (location, behavioral data).
+* **User:**  Recreational anglers using mobile/web app.
+* **Decision:** When to fish (session/hour) based on probability of catching ≥1 fish.
+* **Rationale:** Optimizes time on water, manages expectations, reduces frustration. Guardrails needed for privacy (location, behavioral data).
 
 ## 2) Target & Horizon
-**Target:** Binary `caught_any` (1 if ≥1 catch in session, else 0). The API returns a probability `p ∈ [0,1]` for that target.
-
-**Horizon:** Next fishing session within chosen hour bucket (or current bucket if none provided).
-
-Granularity: hourly or coarse (morning/afternoon/evening/night). No leakage: only features available **pre-session**.
+* **Target:** Binary `caught_any` (1 if ≥1 catch in session, else 0). The API returns a probability `p ∈ [0,1]` for that target.
+* **Horizon:** Next fishing session within chosen hour bucket (or current bucket if none provided).
+* **Granularity:** hourly or coarse (morning/afternoon/evening/night). No leakage: only features available **pre-session**.
 
 ## 3) Features (No leakage)
-**At Prediction Time:** `hour_of_day`, `day_of_week`, `month`, coarse `location_grid` (e.g., 1 km²), recent user history (`n_sessions_past_30d`, `catch_rate_past_30d`), and optional environmental data (`water_temp`, `weather_brief`, `tide_state`, `bait_type`, `target_species`).
-
-**Excluded (Avoids Leakage):** Any post-session data for the predicted session, future environmental forecasts, raw GPS traces, or exact timestamps. Aggregated, pseudonymized data is used instead to protect user privacy.
+* **At Prediction Time:** `hour_of_day`, `day_of_week`, `month`, coarse `location_grid` (e.g., 1 km²), recent user history (`n_sessions_past_30d`, `catch_rate_past_30d`), and optional environmental data (`water_temp`, `weather_brief`, `tide_state`, `bait_type`, `target_species`).
+* **Excluded (Avoids Leakage):** Any post-session data for the predicted session, future environmental forecasts, raw GPS traces, or exact timestamps. Aggregated, pseudonymized data is used instead to protect user privacy.
 
 **Notes:** make `location_grid` coarse by default; require opt-in for finer location.
 
