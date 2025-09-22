@@ -168,3 +168,43 @@ See PIA §12 Guardrails, §7 Transparency, and §3 Linkability + TODO [link arch
 * Documented correction of a poor AI suggestion (AI proposed k=2; we enforced k=10 for stronger anonymity).
 
 **Attribution:** AI generated trade-off sketches and risk lists; team performed evidence checks, code refs, and final design choices.
+
+### 8. Exploring Metrics
+**Prompt A (design alternative):**
+
+> “Should I use classification accuracy or a probabilistic metric like AUC-PR for a fishing chance predictor?”
+> 
+
+**AI Response nudged me to:** prefer **AUC-PR** since class imbalance (few hours with catches vs. many without) makes plain accuracy misleading.
+
+**Inflection Point:** I had originally thought accuracy would be enough, but realized it could give a false sense of performance. Switching to AUC-PR aligns with the problem structure.
+
+**Evidence:** quick sketch: baseline “always predict 0.3” yields ~70% accuracy but poor precision.
+
+**Outcome:** Decided metric will be AUC-PR, not raw accuracy.
+
+### 9. Red-Teaming the Target
+**Prompt B (red-team):**
+
+> “Is predicting ‘probability of a bite in the next hour’ even valid? What if weather or water conditions dominate more than time-of-day?”
+> 
+
+**AI Response nudged me to:** consider whether coarse time-of-day alone might be too weak.
+
+**Inflection Point:** Instead of dropping the project, I reframed: the MVP target is **time-of-day only**, but assumptions will note missing covariates (weather, moon, tide).
+
+**Outcome:** Preserved scope guardrails (8–10 hrs, design only). The model is intentionally limited, but assumptions make the risk explicit.
+
+### 10. Scoping Baseline
+**Prompt A (design alternative):**
+
+> “What is the simplest baseline for CatchChance?”
+> 
+
+**AI Response nudged me to:** try **historical frequency by hour** (e.g., fraction of sessions with at least one catch in that hour).
+
+**Inflection Point:** I had considered a uniform 0.25 probability per time-of-day, but historical frequency is still trivial to compute and more meaningful.
+
+**Evidence:** Paper napkin calc: if 30% of morning sessions had ≥1 catch, baseline is 0.3.
+
+**Outcome:** Adopted historical frequency baseline.
