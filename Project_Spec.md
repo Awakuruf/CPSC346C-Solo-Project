@@ -112,7 +112,7 @@ Refer to [Metrics & SLA](https://github.com/Awakuruf/CPSC346C-Solo-Project/blob/
 * **Purpose limitation:** prediction + model improvement (opt-in). No ads/sale.
 * **Retention:** raw 30d → aggregated; aggregates 2y. Opt-out supported.
 * **Guardrails:** k-anon (k≥10) for aggregates, Laplace noise, coarse grids default, opt-in for fine GPS.
-* **Telemetry:** latency & error logs (low invasiveness, 90–180d TTL).
+* **Telemetry:** latency & error logs (low invasiveness, 90–180d TTL). Minimal device info (UA type) for debugging, 7d TTL.
 * **Reciprocity:** users get personalized predictions + optional community dashboard.
 
 Refer to [Privacy Impact Assessment (PIA) ](https://github.com/Awakuruf/CPSC346C-Solo-Project/blob/main/Privacy_Impact_Assessment.md) for more details, including the full matrix and guardrails.
