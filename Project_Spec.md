@@ -151,7 +151,7 @@ Refer to [Measurement Plan](https://github.com/Awakuruf/CPSC346C-Solo-Project/bl
 
 
 ## 11) Evolution & Evidence
-* Complete Git history: [Commit range 28f789b → 3f8cbb6](https://github.com/Awakuruf/CPSC346C-Solo-Project/commits/main/)
+* Complete Git history: [Commit range 28f789b → Current](https://github.com/Awakuruf/CPSC346C-Solo-Project/commits/main/)
 * Insight memo: [Insight\_Memo.md](https://github.com/Awakuruf/CPSC346C-Solo-Project/blob/main/Insight_Memo.md)
 * Assumption audit: [Assumption\_Audit.md](https://github.com/Awakuruf/CPSC346C-Solo-Project/blob/main/Assumption_Audit.md)
 * Socratic log: [Socratic\_Log.md](https://github.com/Awakuruf/CPSC346C-Solo-Project/blob/main/Socratic_Log.md)
