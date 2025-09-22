@@ -8,7 +8,7 @@
 ## 2) Target & Horizon
 * **Target:** Binary `caught_any` (1 if ≥1 catch in session, else 0). The API returns a probability `p ∈ [0,1]` for that target.
 * **Horizon:** Next fishing session within chosen hour bucket (or current bucket if none provided).
-* **Granularity:** hourly or coarse (morning/afternoon/evening/night). No leakage: only features available **pre-session**.
+* **Granularity:** Hourly or coarse (morning/afternoon/evening/night). No leakage: only features available **pre-session**.
 
 ## 3) Features (No leakage)
 * **At Prediction Time:** `hour_of_day`, `day_of_week`, `month`, coarse `location_grid` (e.g., 1 km²), recent user history (`n_sessions_past_30d`, `catch_rate_past_30d`), and optional environmental data (`water_temp`, `weather_brief`, `tide_state`, `bait_type`, `target_species`).
@@ -28,7 +28,7 @@ Refer to [Baseline vs Model Plain](https://github.com/Awakuruf/CPSC346C-Solo-Pro
 ## 5) Metrics, SLA, and Cost
 * **Primary:** AUC-PR (imbalanced positives) + calibration (Brier).
 
-* **Secondary:** latency (p95), error rate, cache hit rate, cost/10k predictions.
+* **Secondary:** Latency (p95), error rate, cache hit rate, cost/10k predictions.
 
 * **SLA:** p95 ≤300 ms; ≥99.5% availability; ≤$1 per 10k predictions.
 
@@ -79,12 +79,12 @@ Refer to [Metrics & SLA](https://github.com/Awakuruf/CPSC346C-Solo-Project/blob/
 
 ## 7) Privacy, Ethics, Reciprocity (PIA excerpt)
 
-* **Data inventory:** pseudonymous user_id, coarse grid, 30-day aggregates.
-* **Purpose limitation:** prediction + model improvement (opt-in). No ads/sale.
-* **Retention:** raw 30d → aggregated; aggregates 2y. Opt-out supported.
+* **Data inventory:** Pseudonymous user_id, coarse grid, 30-day aggregates.
+* **Purpose limitation:** Prediction + model improvement (opt-in). No ads/sale.
+* **Retention:** Raw 30d → aggregated; aggregates 2y. Opt-out supported.
 * **Guardrails:** k-anon (k≥10) for aggregates, Laplace noise, coarse grids default, opt-in for fine GPS.
-* **Telemetry:** latency & error logs (low invasiveness, 90–180d TTL). Minimal device info (UA type) for debugging, 7d TTL.
-* **Reciprocity:** users get personalized predictions + optional community dashboard.
+* **Telemetry:** Latency & error logs (low invasiveness, 90–180d TTL). Minimal device info (UA type) for debugging, 7d TTL.
+* **Reciprocity:** Users get personalized predictions + optional community dashboard.
 
 Refer to [Privacy Impact Assessment (PIA) ](https://github.com/Awakuruf/CPSC346C-Solo-Project/blob/main/Privacy_Impact_Assessment.md) for more details, including the full matrix and guardrails.
 
@@ -106,9 +106,9 @@ flowchart LR
 ```
 
 ## 9) Risks & Mitigations
-1. **Cost spikes:** rate limits + degrade to cache/baseline.
-2. **Privacy/re-ID:** coarse grids, k-anon, jitter.
-3. **Calibration harm:** track Brier, recalibrate (Platt/isotonic), slow rollouts.
+1. **Cost spikes:** Rate limits + degrade to cache/baseline.
+2. **Privacy/re-ID:** Coarse grids, k-anon, jitter.
+3. **Calibration harm:** Track Brier, recalibrate (Platt/isotonic), slow rollouts.
 
 Refer to [Risks & Mitigations](https://github.com/Awakuruf/CPSC346C-Solo-Project/blob/main/Privacy_Impact_Assessment.md#11-risks--mitigations) for details.
 
