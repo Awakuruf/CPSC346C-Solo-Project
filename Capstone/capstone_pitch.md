@@ -1,93 +1,27 @@
-# Capstone Pitch Report - **MindMirror: A Privacy-Preserving Mental Health Companion**
+# MindMirror: Privacy-Preserving Companion
 
 ## 1. Core Pitch Idea
+**Problem:** Most AI wellness apps (e.g., Replika, Wysa) collect deeply personal reflections and store them on U.S. servers, exposing users to data resale, surveillance, and opaque model behavior. This violates local data-protection norms like **PIPEDA**, **GDPR**, and **LGPD**, undermining user trust and autonomy.
 
-**Problem:**
-Most AI wellness apps (e.g., Replika, Wysa) collect deeply personal reflections and store them on U.S. servers, exposing users to data resale, surveillance, and opaque model behavior. This violates local data-protection norms like **PIPEDA**, **GDPR**, and **LGPD**, undermining user trust and autonomy.
+**Proposed Solution:** MindMirror, a decentralized, ethical AI chatbot that processes conversations locally or in region-locked clouds. It uses mindfulness and Daoist reflection for culturally inclusive self-inquiry without exporting sensitive data. The app transparently signals when AI is used, encrypts all messages end-to-end, and allows users to delete or export data at will.
 
-**Proposed Solution:**
-*MindMirror* is a **decentralized AI wellness chatbot** that processes all conversations **locally or in region-locked clouds**. It blends **mindfulness and Daoist reflection** to encourage calm, culturally inclusive self-inquiry without exporting sensitive data.
-The app transparently signals when AI is used, encrypts all messages end-to-end, and allows users to delete or export data at will.
-
-**Monetization / Impact Model:**
-Freemium subscription:
-
-* **Free:** Local inference, journaling, daily reflection mode
-* **Premium:** Encrypted cloud sync, streak tracking, and personalized summaries
-  Impact goal: Demonstrate that emotional AI can be both private and ethically grounded.
+**Monetization / Impact Model:** Freemium subscription (Free: Local inference/journaling; Premium: Encrypted cloud sync/summaries).
 
 ## 2. Problem & Stakeholders
 **Scenario Summary:**
-Digital wellness tools increasingly cross jurisdictions without respecting **data protection** laws. Under **PIPEDA (Canada)** and **GDPR (EU)**, emotional data may be considered sensitive personal information depending on context—particularly if it relates to health conditions or uses biometric processing. Both frameworks require appropriate consent and safeguards for international data transfers.
-
+Digital wellness tools increasingly cross jurisdictions without respecting data protection laws. Under **PIPEDA (Canada)** and **GDPR (EU)**, emotional data may be considered sensitive personal information depending on context—particularly if it relates to health conditions or uses biometric processing. Both frameworks require appropriate consent and safeguards for international data transfers.
 
 **Primary Stakeholders:**
-
-* Everyday users seeking safe reflective tools
-* Mental-health practitioners exploring digital adjuncts
-* Regulators ensuring cross-border compliance
+The main stakeholders are users seeking safe reflective spaces, mental-health practitioners exploring digital adjuncts, and regulators monitoring compliance.
 
 **Empty Chair:**
-Users uncomfortable with Western mental-health framings—such as **culturally diverse or spiritually oriented populations**—who desire reflective dialogue without clinical or data-extractive overtones.
+Users uncomfortable with Western mental-health framings—such as **culturally diverse or spiritually oriented populations**—who desire reflective dialogue without data-extractive overtones.
 
 **Pain Points:**
+Common pain points include uncertainty over where data goes, distrust of AI tone or bias, and the desire for calm, private reflection that functions even offline.
 
-* Lack of visibility into where data goes
-* Distrust of AI tone or bias
-* Need for calm, private reflection rather than “therapy replacement”
-
-## 3. Architecture Snapshot
-```mermaid
-flowchart LR
-
-%% === Define Styles ===
-classDef user fill:#FFEBE5,stroke:#E67E22,stroke-width:2px,color:#000
-classDef local fill:#E5F9E0,stroke:#27AE60,stroke-width:2px,color:#000
-classDef cloud fill:#E3F2FD,stroke:#1E88E5,stroke-width:2px,color:#000
-classDef boundary stroke-dasharray: 5 5,stroke:#555,stroke-width:1.5px
-
-%% === User Layer ===
-U["User (MindMirror App)"]:::user
-
-%% === Local Processing ===
-subgraph L["Local Device Boundary"]
-direction LR
-    FE["React-Native Frontend<br/>• AES-256 Encryption<br/>• IndexedDB Storage"]:::local
-    TK["Tokenizer & Sentiment Filter<br/>• Pre-process text<br/>• Bias moderation"]:::local
-    LM["Quantized LLM (Mistral 7B)<br/>• On-device inference<br/>• Reflection tone filter"]:::local
-    KS["Local Key Store<br/>• Data deletion & export controls"]:::local
-end
-class L boundary
-
-%% === Regional Cloud ===
-subgraph C["Region-Locked Cloud (ca-central-1 / eu-west-1)"]
-direction LR
-    API["API Gateway<br/>• Signed & encrypted requests"]:::cloud
-    LLM["Regional LLM Endpoint<br/>• Cloud Run container<br/>• Audit logs (metadata only)"]:::cloud
-    S3["Encrypted S3 Bucket<br/>• Region-tagged storage<br/>• Sync only with user consent"]:::cloud
-end
-class C boundary
-
-%% === Governance / Oversight ===
-GOV["Model Governance Layer<br/>• Prompt audit scripts<br/>• Compliance tests<br/>• Red-bar verification"]:::cloud
-
-%% === Data Flows ===
-U --> FE
-FE --> TK
-TK --> LM
-LM -->|Offline Mode| FE
-LM -.->|Opt-in Cloud Inference| API
-API --> LLM --> S3
-S3 --> FE
-FE --> KS
-GOV -.-> LLM
-GOV -.-> S3
-
-%% === Trust Boundaries ===
-L -.->|Trust Boundary<br/>End-to-End Encrypted| C
-```
-
-**Trade-offs:**
+## 3. Architecture Snapshot & Trade-offs
+![MindMirror Diagram](./architectural_diagrams/horizontal-diagram.svg)
 
 | Factor          | Decision                          | Rationale                         |
 | --------------- | --------------------------------- | --------------------------------- |
@@ -103,15 +37,10 @@ L -.->|Trust Boundary<br/>End-to-End Encrypted| C
 | 3. “User data remains deletable and exportable.”                 | Local key-store + GDPR “Right to be Forgotten” API                 | `test_data_erasure()` deletes all user rows and verifies null return        |
 
 ## 5. AI / Automation Usage Plan
-* **Model:** Mistral 7B (quantized for on-device use)
-* **Automation:** nightly prompt-audit scripts ensure tone alignment; CI tests verify data-handling promises.
-* **Assistive AI in Development:** GPT-4 used for code refactoring and architecture documentation (not user data).
+The quantized **Mistral 7B** model supports on-device inference, while **nightly prompt-audit scripts** test tone, compliance, and latency. **GPT-4 assists in code refactoring** and documentation but never accesses user data.
 
 **Failure Modes & Mitigation:**
-
-* *Mode collapse / hallucination:* sentiment + toxicity filter before display.
-* *Cultural bias:* community-sourced reflective corpus integrating Daoist, Stoic, and Indigenous perspectives.
-* *Performance drift:* automatic regression tests on prompt clarity and latency.
+To mitigate failures, sentiment and toxicity filters prevent *harmful or hallucinatory responses*, a *culturally balanced* reflective corpus (Daoist, Stoic, Indigenous texts) reduces bias, and *automated regression tests* track model drift.
 
 **Documentation Strategy:**
 Public **Model Card** + **Data Flow Diagram** outlining privacy guarantees, red-bar test results, and known limitations.
@@ -124,13 +53,11 @@ Public **Model Card** + **Data Flow Diagram** outlining privacy guarantees, red-
 | **Compliance:** Data inadvertently stored in foreign region | Region-lock control + nightly red-bar test                  | `test_region_lock()` passes 100% of runs     |
 
 **Success Metrics:**
-
-* 95% user trust rating on transparency survey
-* ≤ 1% failed jurisdictional compliance tests
-* < 10% power-consumption overhead during local inference
+Success metrics target a **95% transparency-trust score**, **≤ 1% failed jurisdictional compliance tests**, and **< 10% power-consumption overhead** during local inference.
 
 ## Appendix (Optional)
 - Assumptions: regional compute available; user consents to encrypted journaling.
 - GDPR Chapter 2, Article 9: *“Processing of special categories of personal data”* 
   [https://gdpr-info.eu/art-9-gdpr/](https://gdpr-info.eu/art-9-gdpr/)
-- PIPEDA: *"Guidelines for processing personal data across borders"* [https://www.priv.gc.ca/en/privacy-topics/airports-and-borders/gl_dab_090127/] (https://www.priv.gc.ca/en/privacy-topics/airports-and-borders/gl_dab_090127/)
+- PIPEDA: *"Guidelines for processing personal data across borders"*
+  [https://www.priv.gc.ca/en/privacy-topics/airports-and-borders/gl_dab_090127/](https://www.priv.gc.ca/en/privacy-topics/airports-and-borders/gl_dab_090127/)
