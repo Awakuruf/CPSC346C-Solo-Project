@@ -17,9 +17,24 @@ Freemium subscription:
   Impact goal: Demonstrate that emotional AI can be both private and ethically grounded.
 
 ## 2. Problem & Stakeholders
-- Scenario summary (include jurisdictional constraints)
-- Primary stakeholders + empty chair (who is left out?)
-- Pain points / goals
+**Scenario Summary:**
+Digital wellness tools increasingly cross jurisdictions without respecting **data protection** laws. Under **PIPEDA (Canada)** and **GDPR (EU)**, emotional data may be considered sensitive personal information depending on context—particularly if it relates to health conditions or uses biometric processing. Both frameworks require appropriate consent and safeguards for international data transfers.
+
+
+**Primary Stakeholders:**
+
+* Everyday users seeking safe reflective tools
+* Mental-health practitioners exploring digital adjuncts
+* Regulators ensuring cross-border compliance
+
+**Empty Chair:**
+Users uncomfortable with Western mental-health framings—such as **culturally diverse or spiritually oriented populations**—who desire reflective dialogue without clinical or data-extractive overtones.
+
+**Pain Points:**
+
+* Lack of visibility into where data goes
+* Distrust of AI tone or bias
+* Need for calm, private reflection rather than “therapy replacement”
 
 ## 3. Architecture Snapshot
 - Diagram or textual description of target architecture
