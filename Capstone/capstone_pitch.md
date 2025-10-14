@@ -38,7 +38,7 @@ Users uncomfortable with Western mental-health framings—such as **culturally d
 
 ## 3. Architecture Snapshot
 ```mermaid
-flowchart TB
+flowchart LR
 
 %% === Define Styles ===
 classDef user fill:#FFEBE5,stroke:#E67E22,stroke-width:2px,color:#000
@@ -51,7 +51,7 @@ U["User (MindMirror App)"]:::user
 
 %% === Local Processing ===
 subgraph L["Local Device Boundary"]
-direction TB
+direction LR
     FE["React-Native Frontend<br/>• AES-256 Encryption<br/>• IndexedDB Storage"]:::local
     TK["Tokenizer & Sentiment Filter<br/>• Pre-process text<br/>• Bias moderation"]:::local
     LM["Quantized LLM (Mistral 7B)<br/>• On-device inference<br/>• Reflection tone filter"]:::local
@@ -61,7 +61,7 @@ class L boundary
 
 %% === Regional Cloud ===
 subgraph C["Region-Locked Cloud (ca-central-1 / eu-west-1)"]
-direction TB
+direction LR
     API["API Gateway<br/>• Signed & encrypted requests"]:::cloud
     LLM["Regional LLM Endpoint<br/>• Cloud Run container<br/>• Audit logs (metadata only)"]:::cloud
     S3["Encrypted S3 Bucket<br/>• Region-tagged storage<br/>• Sync only with user consent"]:::cloud
@@ -130,5 +130,7 @@ Public **Model Card** + **Data Flow Diagram** outlining privacy guarantees, red-
 * < 10% power-consumption overhead during local inference
 
 ## Appendix (Optional)
-- Supporting data (links to repo, ledger entry, etc.)
-- Assumptions & open questions
+- Assumptions: regional compute available; user consents to encrypted journaling.
+- GDPR Chapter 2, Article 9: *“Processing of special categories of personal data”* 
+  [https://gdpr-info.eu/art-9-gdpr/](https://gdpr-info.eu/art-9-gdpr/)
+- PIPEDA: *"Guidelines for processing personal data across borders"* [https://www.priv.gc.ca/en/privacy-topics/airports-and-borders/gl_dab_090127/] (https://www.priv.gc.ca/en/privacy-topics/airports-and-borders/gl_dab_090127/)
