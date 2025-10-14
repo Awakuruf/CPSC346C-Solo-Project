@@ -117,9 +117,17 @@ L -.->|Trust Boundary<br/>End-to-End Encrypted| C
 Public **Model Card** + **Data Flow Diagram** outlining privacy guarantees, red-bar test results, and known limitations.
 
 ## 6. Risks & Mitigations
-- Risk 1 (ethical, operational, cost, etc.) + mitigation + evidence/test
-- Risk 2 + mitigation + evidence/test
-- Success metrics / acceptance tests (tie back to Clause→Control→Test)
+| Risk                                                        | Mitigation                                                  | Evidence / Test                              |
+| ----------------------------------------------------------- | ----------------------------------------------------------- | -------------------------------------------- |
+| **Ethical:** Model gives harmful or prescriptive advice     | Fine-tune for reflection (not diagnosis) + moderation layer | Sentiment audit < 1% harmful responses       |
+| **Operational:** Local inference drains battery             | Quantized model (GGUF 8-bit) + usage cap                    | Battery-profiling test < 10% drain / session |
+| **Compliance:** Data inadvertently stored in foreign region | Region-lock control + nightly red-bar test                  | `test_region_lock()` passes 100% of runs     |
+
+**Success Metrics:**
+
+* 95% user trust rating on transparency survey
+* ≤ 1% failed jurisdictional compliance tests
+* < 10% power-consumption overhead during local inference
 
 ## Appendix (Optional)
 - Supporting data (links to repo, ledger entry, etc.)
