@@ -1,11 +1,20 @@
-# Capstone Pitch Report Template (2 Pages)
-
-> Keep your report under two pages. Use this outline to scaffold your pitch. Replace prompt text with your content.
+# Capstone Pitch Report - **MindMirror: A Privacy-Preserving Mental Health Companion**
 
 ## 1. Core Pitch Idea
-- Describe the problem
-- Describe your solution
-- Identify the monetization model
+
+**Problem:**
+Most AI wellness apps (e.g., Replika, Wysa) collect deeply personal reflections and store them on U.S. servers, exposing users to data resale, surveillance, and opaque model behavior. This violates local data-protection norms like **PIPEDA**, **GDPR**, and **LGPD**, undermining user trust and autonomy.
+
+**Proposed Solution:**
+*MindMirror* is a **decentralized AI wellness chatbot** that processes all conversations **locally or in region-locked clouds**. It blends **mindfulness and Daoist reflection** to encourage calm, culturally inclusive self-inquiry without exporting sensitive data.
+The app transparently signals when AI is used, encrypts all messages end-to-end, and allows users to delete or export data at will.
+
+**Monetization / Impact Model:**
+Freemium subscription:
+
+* **Free:** Local inference, journaling, daily reflection mode
+* **Premium:** Encrypted cloud sync, streak tracking, and personalized summaries
+  Impact goal: Demonstrate that emotional AI can be both private and ethically grounded.
 
 ## 2. Problem & Stakeholders
 - Scenario summary (include jurisdictional constraints)
