@@ -21,7 +21,56 @@ Users uncomfortable with Western mental-health framings—such as **culturally d
 Common pain points include uncertainty over where data goes, distrust of AI tone or bias, and the desire for calm, private reflection that functions even offline.
 
 ## 3. Architecture Snapshot & Trade-offs
-![MindMirror Diagram](./architectural_diagrams/horizontal-diagram.svg)
+<!-- ![MindMirror Diagram](./architectural_diagrams/horizontal-diagram.svg) -->
+```mermaid
+flowchart LR
+
+%% === Define Styles ===
+classDef user fill:#FFEBE5,stroke:#E67E22,stroke-width:2px,color:#000
+classDef local fill:#E5F9E0,stroke:#27AE60,stroke-width:2px,color:#000
+classDef cloud fill:#E3F2FD,stroke:#1E88E5,stroke-width:2px,color:#000
+classDef boundary stroke-dasharray: 5 5,stroke:#555,stroke-width:1.5px
+
+%% === User Layer ===
+U["User (MindMirror App)"]:::user
+
+%% === Local Processing ===
+subgraph L["Local Device Boundary"]
+direction LR
+    FE["React-Native Frontend<br/>• AES-256 Encryption<br/>• IndexedDB Storage"]:::local
+    TK["Tokenizer & Sentiment Filter<br/>• Pre-process text<br/>• Bias moderation"]:::local
+    LM["Quantized LLM (Mistral 7B)<br/>• On-device inference<br/>• Reflection tone filter"]:::local
+    KS["Local Key Store<br/>• Data deletion & export controls"]:::local
+end
+class L boundary
+
+%% === Regional Cloud ===
+subgraph C["Region-Locked Cloud (ca-central-1 / eu-west-1)"]
+direction LR
+    API["API Gateway<br/>• Signed & encrypted requests"]:::cloud
+    LLM["Regional LLM Endpoint<br/>• Cloud Run container<br/>• Audit logs (metadata only)"]:::cloud
+    S3["Encrypted S3 Bucket<br/>• Region-tagged storage<br/>• Sync only with user consent"]:::cloud
+end
+class C boundary
+
+%% === Governance / Oversight ===
+GOV["Model Governance Layer<br/>• Prompt audit scripts<br/>• Compliance tests<br/>• Red-bar verification"]:::cloud
+
+%% === Data Flows ===
+U --> FE
+FE --> TK
+TK --> LM
+LM -->|Offline Mode| FE
+LM -.->|Opt-in Cloud Inference| API
+API --> LLM --> S3
+S3 --> FE
+FE --> KS
+GOV -.-> LLM
+GOV -.-> S3
+
+%% === Trust Boundaries ===
+L -.->|Trust Boundary<br/>End-to-End Encrypted| C
+```
 
 | Factor          | Decision                          | Rationale                         |
 | --------------- | --------------------------------- | --------------------------------- |
