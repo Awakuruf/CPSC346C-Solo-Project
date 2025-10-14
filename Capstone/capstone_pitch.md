@@ -103,9 +103,18 @@ L -.->|Trust Boundary<br/>End-to-End Encrypted| C
 | 3. “User data remains deletable and exportable.”                 | Local key-store + GDPR “Right to be Forgotten” API                 | `test_data_erasure()` deletes all user rows and verifies null return        |
 
 ## 5. AI / Automation Usage Plan
-- How you will use GenAI / automation tools
-- Known failure modes + mitigation plan
-- Documentation strategy (what will you publish?)
+* **Model:** Mistral 7B (quantized for on-device use)
+* **Automation:** nightly prompt-audit scripts ensure tone alignment; CI tests verify data-handling promises.
+* **Assistive AI in Development:** GPT-4 used for code refactoring and architecture documentation (not user data).
+
+**Failure Modes & Mitigation:**
+
+* *Mode collapse / hallucination:* sentiment + toxicity filter before display.
+* *Cultural bias:* community-sourced reflective corpus integrating Daoist, Stoic, and Indigenous perspectives.
+* *Performance drift:* automatic regression tests on prompt clarity and latency.
+
+**Documentation Strategy:**
+Public **Model Card** + **Data Flow Diagram** outlining privacy guarantees, red-bar test results, and known limitations.
 
 ## 6. Risks & Mitigations
 - Risk 1 (ethical, operational, cost, etc.) + mitigation + evidence/test
