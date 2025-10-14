@@ -96,11 +96,11 @@ L -.->|Trust Boundary<br/>End-to-End Encrypted| C
 | **Reliability** | Offline fallback                  | Works even without network access |
 
 ## 4. Clause → Control → Test
-| Clause (Promise) | Control (Implementation) | Test (Red Bar) |
-| --- | --- | --- |
-| Example: "Canadian health data stays in Canada." | Route 53 resolver in ca-central-1 + IAM policy restricting analysts to Canadian VPC | `test_canada_data_residency()` asserts no non-CA buckets referenced |
-| Clause 1 | | |
-| Clause 2 | | |
+| Clause (Promise)                                                 | Control (Implementation)                                           | Test (Red Bar)                                                              |
+| ---------------------------------------------------------------- | ------------------------------------------------------------------ | --------------------------------------------------------------------------- |
+| 1. “User reflections never leave their jurisdiction.”            | VPC isolation + region-tagged S3 bucket (ca-central-1 / eu-west-1) | `test_region_lock()` asserts all writes reference correct regional endpoint |
+| 2. “AI responses are always disclosed and logged transparently.” | UI badge + metadata tag (`source: AI`) + audit ledger              | `test_ai_disclosure()` checks every chat entry includes `source` metadata   |
+| 3. “User data remains deletable and exportable.”                 | Local key-store + GDPR “Right to be Forgotten” API                 | `test_data_erasure()` deletes all user rows and verifies null return        |
 
 ## 5. AI / Automation Usage Plan
 - How you will use GenAI / automation tools
